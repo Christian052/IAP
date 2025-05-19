@@ -48,32 +48,39 @@
 
     <!-- Featured Event -->
     @php
-      $featuredEvent = collect($Events)->first(function ($event) {
-        return $event->Status === 'Active' && $event->Date >= now()->toDateString();
-      });
-    @endphp
+  use Illuminate\Support\Carbon;
 
-    @if($featuredEvent)
-    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-      <div class="lg:col-span-2 bg-white text-black h-64 flex items-center justify-center rounded-lg overflow-hidden">
-        <img src="{{ asset('picture/' . $featuredEvent->Image) }}" alt="{{ $featuredEvent->Name }}" class="h-full w-full object-cover">
-      </div>
-      <div class="bg-white text-black p-4 rounded-lg">
-        <div class="h-32 w-full overflow-hidden rounded mb-2">
-          <img src="{{ asset('picture/' . $featuredEvent->Image) }}" alt="{{ $featuredEvent->Name }}" class="h-full w-full object-cover">
-        </div>
-        <div class="text-sm mb-2 space-y-1">
-          <p class="font-semibold">{{ $featuredEvent->Name }}</p>
-          <p>Event Date: {{ $featuredEvent->Date }}</p>
-          <p>Time: {{ $featuredEvent->Time }}</p>
-          <p>Status: <span class="text-green-600">{{ $featuredEvent->Status }}</span></p>
-        </div>
-        <button class="bg-black text-white px-4 py-1 rounded-full">Book</button>
-      </div>
-    </section>
-    @else
-      <p class="text-white mb-6 text-sm">No upcoming featured event available.</p>
-    @endif
+  $featuredEvent = collect($Events)->first(function ($event) {
+    $status = trim(strtolower($event->Status));
+    $eventDate = Carbon::parse($event->Date);
+    return $status === 'active' && $eventDate->isSameDay(now()) || $eventDate->isFuture();
+  });
+@endphp
+
+@if($featuredEvent)
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+  <div class="lg:col-span-2 bg-white text-black h-80 flex items-center justify-center rounded-lg overflow-hidden">
+    <img loading="lazy" src="{{ asset('picture/' . $featuredEvent->Image) }}" alt="{{ $featuredEvent->Name }}" class="h-full w-full object-cover">
+  </div>
+  <div class="bg-white text-black p-4 rounded-lg">
+    <div class="h-32 w-full overflow-hidden rounded mb-2">
+      <img loading="lazy" src="{{ asset('picture/' . $featuredEvent->Image) }}" alt="{{ $featuredEvent->Name }}" class="h-full w-full object-cover">
+    </div>
+    <div class="text-sm mb-2 space-y-1">
+      <p class="font-semibold">{{ $featuredEvent->Name }}</p>
+      <p>Event Date: {{ $featuredEvent->Date }}</p>
+      <p>Time: {{ $featuredEvent->Time }}</p>
+      <p>Status: <span class="text-green-600">{{ ucfirst($featuredEvent->Status) }}</span></p>
+    </div>
+    <button class="bg-black text-white px-4 py-1 rounded-full">Book</button>
+  </div>
+</section>
+@else
+  <p class="text-white mb-6 text-sm">No upcoming featured event available.</p>
+
+  {{-- Optional: show debug output for developers --}}
+  {{-- <pre class="text-xs text-white">{{ print_r($Events, true) }}</pre> --}}
+@endif
 
     <!-- All Events -->
     <section>
@@ -88,7 +95,7 @@
             <p>{{ $event->Date }}</p>
             <p>{{ $event->Time }}</p>
             <p>Status: 
-              <span class="{{ $event->Status == 'Active' ? 'text-green-600' : 'text-red-500' }}">
+              <span class="text-green-600">
                 {{ $event->Status }}
               </span>
             </p>

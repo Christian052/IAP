@@ -65,8 +65,7 @@
                 @foreach($Events as $event)
                     <tr>
                         <td class="p-2">
-                           <img src="{{asset('picture/' . $event->Image)}}" alt="{{ $event->Name }}" width="40px" height="40px" 
-                           style="border-radius: 50%;">
+                           <img src="{{asset('picture/' . $event->Image)}}" alt="{{ $event->Name }}" width="40px" height="40px">
                         </td>
                         <td class="p-2">{{ $event->Name }}</td>
                         <td class="p-2">{{ $event->Location }}</td>

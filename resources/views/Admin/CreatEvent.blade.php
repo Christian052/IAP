@@ -47,7 +47,7 @@
     <div class="bg-white p-6 rounded-lg shadow-md mb-10">
         <h2 class="text-2xl font-semibold mb-4">Create New Event</h2>
          @if (session('Success'))
-            <div class="text-success">{{session('Success')}}</div>
+            <div class="text-green-600">{{session('Success')}}</div>
         @endif
         <form action="{{Route('Admin.Events.Store')}}" method="post" enctype="multipart/form-data">
             @csrf
