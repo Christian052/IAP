@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Manage Events</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -41,61 +41,37 @@
         </div>
     </div>
 
-<div class="p-6 md:p-10 bg-gray-100 min-h-screen">
+    <div class="w-full md:ml-[20%] p-8">
+  <div class="p-6 md:p-10  min-h-screen">
     <h1 class="text-3xl font-bold text-primary mb-8">Manage Events</h1>
-
-    <div class="bg-white p-6 rounded-lg shadow-md mb-10">
-        <h2 class="text-2xl font-semibold mb-4">Create New Event</h2>
-        <form action="{{ route('admin.events.store') }}" method="POST">
-            @csrf
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Event Title</label>
-                    <input type="text" name="title" class="w-full p-2 border rounded" required>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
-                    <input type="text" name="location" class="w-full p-2 border rounded" required>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
-                    <input type="date" name="start_date" class="w-full p-2 border rounded" required>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">End Date</label>
-                    <input type="date" name="end_date" class="w-full p-2 border rounded" required>
-                </div>
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                    <textarea name="description" rows="4" class="w-full p-2 border rounded" required></textarea>
-                </div>
-            </div>
-            <div class="mt-6">
-                <button type="submit" class="bg-primary text-white px-6 py-2 rounded hover:bg-blue-900 transition">
-                    Save Event
-                </button>
-            </div>
-        </form>
-    </div>
-
-    {{-- Events List --}}
+     <!-- Events List -->
     <div class="bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-4">Event List</h2>
+        <div class=" flex justify-between mb-2">
+            <h2 class="text-2xl font-semibold mb-4">Event List</h2>
+            <a href="{{Route('Admin.Events.Create')}}" class="bg-primary text-white px-6 py-2  rounded hover:bg-blue-900 transition">Create Event</a>
+        </div>
         <table class="min-w-full border text-sm">
             <thead class="bg-primary text-white">
                 <tr>
-                    <th class="p-2 text-left">Title</th>
+                    <th class="p-2 text-left">Image</th>
+                    <th class="p-2 text-left">Name</th>
                     <th class="p-2 text-left">Location</th>
-                    <th class="p-2 text-left">Dates</th>
+                    <th class="p-2 text-left">Date</th>
+                    <th class="p-2 text-left">Time</th>
                     <th class="p-2 text-left">Actions</th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-                @forelse($events as $event)
+                @foreach($Events as $event)
                     <tr>
-                        <td class="p-2">{{ $event->title }}</td>
-                        <td class="p-2">{{ $event->location }}</td>
-                        <td class="p-2">{{ $event->start_date }} → {{ $event->end_date }}</td>
+                        <td class="p-2">
+                           <img src="{{asset('picture/' . $event->Image)}}" alt="{{ $event->Name }}" width="40px" height="40px" 
+                           style="border-radius: 50%;">
+                        </td>
+                        <td class="p-2">{{ $event->Name }}</td>
+                        <td class="p-2">{{ $event->Location }}</td>
+                        <td class="p-2">{{ $event->Date }}</td>
+                        <td class="p-2">{{ $event->Time }}</td>
                         <td class="p-2 space-x-2">
                             <a href="{{ route('admin.events.edit', $event->id) }}" class="text-blue-600 hover:underline">Edit</a>
                             <form action="{{ route('admin.events.destroy', $event->id) }}" method="POST" class="inline-block">
@@ -104,14 +80,12 @@
                             </form>
                         </td>
                     </tr>
-                @empty
-                    <tr><td colspan="4" class="p-4 text-center text-gray-500">No events available.</td></tr>
-                @endforelse
+                @endforeach
             </tbody>
         </table>
     </div>
-</div>
-@endsection
+    </div>
+ </div>
 
 </body>
 
