@@ -4,13 +4,18 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
+/*========================== User all Routes ==========================*/
 Route::get('/', [UserController::class, 'ShowHome'])->name('Home');
+Route::get('/userprofile', [UserController::class, 'UserProfile'])->name('Profile');
 
 
 
 
 
 
+
+
+/*========================== Admin all Routes ==========================*/
 
 Route::get('/admin/dashboard',[AdminController::class, 'Dashboard'])->name('Admin.Dashboard');
 
@@ -23,3 +28,5 @@ Route::post('/admin/events/store',[AdminController::class, 'EventStore'])->name(
 Route::get('/admin/events/{id}/edit', [AdminController::class, 'edit'])->name('admin.events.edit');
 
 Route::delete('/admin/events/{id}', [AdminController::class, 'destroy'])->name('admin.events.destroy');
+
+Route::put('/admin/events/{event}', [AdminController::class, 'update'])->name('Admin.Events.Update');

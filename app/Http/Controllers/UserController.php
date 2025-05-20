@@ -15,4 +15,7 @@ class UserController extends Controller
 
     return view('home', compact('Events'));
     }
+    public function UserProfile(){
+        return view('UserProfile');
+    }
 }

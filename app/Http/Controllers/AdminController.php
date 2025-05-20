@@ -7,7 +7,12 @@ use App\Models\Events;
 class AdminController extends Controller
 {
     public function Dashboard(){
-        return view('Admin.Dashboard');
+    $upcomingEventsCount = Events::where('Status', 'Active')
+                                 ->whereDate('Date', '>=', now())
+                                 ->count();
+
+                                 
+    return view('Admin.Dashboard', compact('upcomingEventsCount'));
     }
     public function EventsCreate(){
         return view('Admin.CreatEvent');
@@ -55,6 +60,33 @@ class AdminController extends Controller
     $event = Events::findOrFail($id);
     return view('Admin.EditEvent', compact('event'));
 }
+ public function update(Request $request, $id)
+    {
+        $event = Events::findOrFail($id);
+
+        
+        $validated = $request->validate([
+            'Name' => 'required|string|max:255',
+            'Location' => 'required|string|max:255',
+            'Date' => 'required|date',
+            'Time' => 'required|string',
+            'Image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'Category' => 'nullable|string',
+            'Status' => 'nullable|string',
+        ]);
+
+        
+        if ($request->hasFile('Image')) {
+            $imagePath = $request->file('Image')->store('pictures', 'public');
+            $validated['Image'] = $imagePath;
+        }
+
+        
+        $event->update($validated);
+
+        
+        return redirect()->route('Admin.Events')->with('Success', 'Event updated successfully!');
+    }
 public function destroy($id)
 {
     $event = Events::findOrFail($id);
