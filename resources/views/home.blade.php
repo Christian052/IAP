@@ -9,18 +9,13 @@
 </head>
 <body class="bg-[#3e1e1e] text-white min-h-screen">
 
- <!-- Responsive Header -->
+<!-- Header -->
 <header class="bg-[#875151] p-4">
   <div class="flex justify-between items-center">
-    <!-- Logo -->
     <div class="font-bold text-lg">Logo</div>
-
-    <!-- Hamburger Menu Button (Mobile Only) -->
     <button id="menu-toggle" class="md:hidden text-xl">
       <i class="fas fa-bars"></i>
     </button>
-
-    <!-- Navigation & Actions (Desktop Only) -->
     <nav class="hidden md:flex gap-6 items-center">
       <a href="{{ route('Home') }}" class="hover:underline">Events</a>
       <a href="#" class="hover:underline">My Tickets</a>
@@ -31,9 +26,7 @@
       <button class="bg-black text-white px-4 py-1 rounded-full">Sign in</button>
     </nav>
   </div>
-
-  <!-- Mobile Menu (Hidden by default) -->
-  <div id="mobile-menu" class="md:hidden  mt-4 flex flex-col gap-4">
+  <div id="mobile-menu" class="md:hidden hidden mt-4 flex flex-col gap-4">
     <a href="{{ route('Home') }}" class="hover:underline">Events</a>
     <a href="#" class="hover:underline">My Tickets</a>
     <a href="#" class="hover:underline">Discover</a>
@@ -44,102 +37,90 @@
       <button class="bg-black text-white px-4 py-1 rounded-full">Sign in</button>
     </div>
   </div>
-
   <script>
     document.getElementById('menu-toggle').addEventListener('click', () => {
-      const menu = document.getElementById('mobile-menu');
-      menu.classList.toggle('hidden');
+      document.getElementById('mobile-menu').classList.toggle('hidden');
     });
   </script>
 </header>
 
-  <!-- Search & Filter -->
-  <section class="flex flex-wrap gap-4 justify-between items-center  px-10 py-4">
-    <div class="flex items-center w-full max-w-xl bg-[#875151] px-4 py-2 rounded-full">
-      <i class="fas fa-search mr-2"></i>
-      <input type="text" placeholder="Search event..." class="bg-transparent w-full outline-none placeholder-white text-white" aria-label="Search Events">
-    </div>
-    <div class="flex items-center gap-2 bg-[#875151] px-4 py-2 rounded-full">
-      <i class="fas fa-home"></i>
-      <span>Venue</span>
-      <i class="fas fa-chevron-down"></i>
-    </div>
-    <div class="bg-[#875151] p-2 rounded-full">
-      <i class="fas fa-ellipsis-h"></i>
-    </div>
-  </section>
-
-  <!-- Main Content -->
- <div class="containe m-5 bg-[#875151] rounded-lg">
-  <main class="p-10">
-
-    <!-- Featured Event -->
-    @php
-  use Illuminate\Support\Carbon;
-
-  $featuredEvent = collect($Events)->first(function ($event) {
-    $status = trim(strtolower($event->Status));
-    $eventDate = Carbon::parse($event->Date);
-    return $status === 'active' && $eventDate->isSameDay(now()) || $eventDate->isFuture();
-  });
-@endphp
-
-@if($featuredEvent)
-<section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-  <div class="lg:col-span-2 bg-white text-black h-80 flex items-center justify-center rounded-lg overflow-hidden">
-    <img loading="lazy" src="{{ asset('picture/' . $featuredEvent->Image) }}" alt="{{ $featuredEvent->Name }}" class="h-full w-full object-cover">
+<!-- Search & Filter -->
+<section class="flex flex-wrap gap-4 justify-between items-center px-10 py-4">
+  <form class="flex items-center w-full max-w-xl bg-[#875151] px-4 py-2 rounded-full">
+    <i class="fas fa-search mr-2 text-white"></i>
+    <input id="searchInput" type="text" placeholder="Search event..." class="bg-transparent w-full outline-none placeholder-white text-white" aria-label="Search Events">
+  </form>
+  <div class="flex items-center gap-2 bg-[#875151] px-4 py-2 rounded-full">
+    <i class="fas fa-home"></i>
+    <span>Venue</span>
+    <i class="fas fa-chevron-down"></i>
   </div>
-  <div class="bg-white text-black p-4 rounded-lg">
-    <div class="h-32 w-full overflow-hidden rounded mb-2">
-      <img loading="lazy" src="{{ asset('picture/' . $featuredEvent->Image) }}" alt="{{ $featuredEvent->Name }}" class="h-full w-full object-cover">
-    </div>
-    <div class="text-sm mb-2 space-y-1">
-      <p class="font-semibold">{{ $featuredEvent->Name }}</p>
-      <p>Event Date: {{ $featuredEvent->Date }}</p>
-      <p>Time: {{ $featuredEvent->Time }}</p>
-      <p>Status: <span class="text-green-600">{{ ucfirst($featuredEvent->Status) }}</span></p>
-    </div>
-    <button class="bg-black text-white px-4 py-1 rounded-full">Book</button>
+  <div class="bg-[#875151] p-2 rounded-full">
+    <i class="fas fa-ellipsis-h"></i>
   </div>
 </section>
-@else
-  <p class="text-white mb-6 text-sm">No upcoming featured event available.</p>
 
-  {{-- Optional: show debug output for developers --}}
-  {{-- <pre class="text-xs text-white">{{ print_r($Events, true) }}</pre> --}}
-@endif
+<!-- Main Content -->
+<div class="m-5 bg-[#875151] rounded-lg">
+  <main class="p-10">
+    <!-- Featured Event -->
+    @php
+      use Illuminate\Support\Carbon;
+      $featuredEvent = collect($Events)->first(function ($event) {
+        $status = trim(strtolower($event->Status));
+        $eventDate = Carbon::parse($event->Date);
+        return $status === 'active' && $eventDate->isSameDay(now()) || $eventDate->isFuture();
+      });
+    @endphp
+
+    @if($featuredEvent)
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+      <div class="lg:col-span-2 bg-white text-black h-80 flex items-center justify-center rounded-lg overflow-hidden">
+        <img loading="lazy" src="{{ asset('picture/' . $featuredEvent->Image) }}" alt="{{ $featuredEvent->Name }}" class="h-full w-full object-cover">
+      </div>
+      <div class="bg-white text-black p-4 rounded-lg">
+        <div class="h-32 w-full overflow-hidden rounded mb-2">
+          <img loading="lazy" src="{{ asset('picture/' . $featuredEvent->Image) }}" alt="{{ $featuredEvent->Name }}" class="h-full w-full object-cover">
+        </div>
+        <div class="text-sm mb-2 space-y-1">
+          <p class="font-semibold">{{ $featuredEvent->Name }}</p>
+          <p>Event Date: {{ $featuredEvent->Date }}</p>
+          <p>Time: {{ $featuredEvent->Time }}</p>
+          <p>Status: <span class="text-green-600">{{ ucfirst($featuredEvent->Status) }}</span></p>
+        </div>
+        <button class="bg-black text-white px-4 py-1 rounded-full">Book</button>
+      </div>
+    </section>
+    @else
+      <p class="text-white mb-6 text-sm">No upcoming featured event available.</p>
+    @endif
 
     <!-- All Events -->
     <section>
       <h2 class="text-lg mb-4">All Events</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
+      <div id="eventGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
         @forelse($Events as $event)
-          <div class="bg-white text-black p-2 text-sm rounded-lg">
-            <div class="h-32 w-full overflow-hidden rounded mb-2">
-              <img src="{{ asset('picture/' . $event->Image) }}" alt="{{ $event->Name }}" class="h-full w-full object-cover">
-            </div>
-            <p class="font-semibold">{{ $event->Name }}</p>
-            <p>{{ $event->Date }}</p>
-            <p>{{ $event->Time }}</p>
-            <p>Status: 
-              <span class="text-green-600">
-                {{ $event->Status }}
-              </span>
-            </p>
-            <button class="bg-black text-white px-2 py-1 text-xs rounded-full mt-2">Book</button>
+        <div class="event-card bg-white text-black p-2 text-sm rounded-lg">
+          <div class="h-32 w-full overflow-hidden rounded mb-2">
+            <img src="{{ asset('picture/' . $event->Image) }}" alt="{{ $event->Name }}" class="h-full w-full object-cover">
           </div>
+          <p class="event-name font-semibold">{{ $event->Name }}</p>
+          <p>{{ $event->Date }}</p>
+          <p>{{ $event->Time }}</p>
+          <p>Status: <span class="text-green-600">{{ $event->Status }}</span></p>
+          <button class="bg-black text-white px-2 py-1 text-xs rounded-full mt-2">Book</button>
+        </div>
         @empty
-          <p class="text-white col-span-full">No events available at this time.</p>
+        <p class="text-white col-span-full">No events available at this time.</p>
         @endforelse
       </div>
     </section>
-
   </main>
 </div>
-  <footer class="bg-[#875151] text-white py-12 mt-16">
+
+<!-- Footer -->
+<footer class="bg-[#875151] text-white py-12 mt-16">
   <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
-    
-    <!-- Logo & Description -->
     <div>
       <h2 class="text-2xl text-gray-900 font-bold mb-2">EMS</h2>
       <p class="text-sm text-black mb-4">Your trusted partner for discovering and managing events with ease.</p>
@@ -150,8 +131,6 @@
         <a href="#" class="hover:text-blue-400 text-gray-900"><i class="fab fa-linkedin-in"></i></a>
       </div>
     </div>
-
-    <!-- Navigation -->
     <div>
       <h3 class="text-lg font-semibold mb-3 text-gray-900">Company</h3>
       <ul class="space-y-2 text-sm text-black">
@@ -161,8 +140,6 @@
         <li><a href="#" class="hover:text-white">Blog</a></li>
       </ul>
     </div>
-
-    <!-- Support -->
     <div>
       <h3 class="text-lg font-semibold mb-3 text-gray-900">Support</h3>
       <ul class="space-y-2 text-sm text-black">
@@ -172,10 +149,8 @@
         <li><a href="#" class="hover:text-white">Accessibility</a></li>
       </ul>
     </div>
-
-    <!-- Newsletter -->
     <div>
-      <h3 class="text-lg font-semibold mb-3 text-gray-900 ">Stay Updated</h3>
+      <h3 class="text-lg font-semibold mb-3 text-gray-900">Stay Updated</h3>
       <p class="text-sm text-black mb-4">Get event news and exclusive offers in your inbox.</p>
       <form class="flex flex-col space-y-2">
         <input type="email" placeholder="Your email" class="px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:border-blue-500">
@@ -183,12 +158,26 @@
       </form>
     </div>
   </div>
-
-  <!-- Footer Bottom -->
   <div class="border-t border-gray-900 mt-12 pt-6 text-center text-sm text-black">
     &copy; {{ date('Y') }} EMS. All rights reserved.
   </div>
 </footer>
+
+<!-- JavaScript for Search -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('searchInput');
+    const eventCards = document.querySelectorAll('.event-card');
+
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase().trim();
+      eventCards.forEach(card => {
+        const name = card.querySelector('.event-name').textContent.toLowerCase();
+        card.style.display = name.includes(query) ? 'block' : 'none';
+      });
+    });
+  });
+</script>
 
 </body>
 </html>
