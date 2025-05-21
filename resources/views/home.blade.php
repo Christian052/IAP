@@ -26,7 +26,7 @@
       <button class="bg-black text-white px-4 py-1 rounded-full">Sign in</button>
     </nav>
   </div>
-  <div id="mobile-menu" class="md:hidden hidden mt-4 flex flex-col gap-4">
+  <div id="mobile-menu" class="md:hidden  mt-4 flex flex-col gap-4">
     <a href="{{ route('Home') }}" class="hover:underline">Events</a>
     <a href="#" class="hover:underline">My Tickets</a>
     <a href="#" class="hover:underline">Discover</a>
