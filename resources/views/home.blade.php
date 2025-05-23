@@ -23,7 +23,8 @@
       <a href="#" class="hover:underline">Contact us</a>
       <button aria-label="Notifications"><i class="fas fa-bell"></i></button>
       <a href="{{Route('Profile')}}" class="hover:text-blue-400"><i class="fas fa-user"></i></a>
-      <button class="bg-black text-white px-4 py-1 rounded-full">Sign in</button>
+      <!-- <button class="bg-black text-white px-4 py-1 rounded-full">Sign in</button> -->
+       <a href="{{ route('signIn') }}">signIn</a>
     </nav>
   </div>
   <div id="mobile-menu" class="md:hidden  mt-4 flex flex-col gap-4">
@@ -88,7 +89,8 @@
           <p>Time: {{ $featuredEvent->Time }}</p>
           <p>Status: <span class="text-green-600">{{ ucfirst($featuredEvent->Status) }}</span></p>
         </div>
-        <button class="bg-black text-white px-4 py-1 rounded-full">Book</button>
+        <!-- <button class="bg-black text-white px-4 py-1 rounded-full">Book</button> -->
+         <a href="{{ route('book') }}"class="bg-black text-white px-4 py-1 rounded-full">book</a>
       </div>
     </section>
     @else

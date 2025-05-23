@@ -7,7 +7,10 @@ use Illuminate\Support\Facades\Route;
 /*========================== User all Routes ==========================*/
 Route::get('/', [UserController::class, 'ShowHome'])->name('Home');
 Route::get('/userprofile', [UserController::class, 'UserProfile'])->name('Profile');
-
+Route::get('/book', [UserController::class,'book'])->name('book');
+Route::get('/signIn' , [UserController::class,'signIn'])->name('signIn');
+Route::get('/signin/password.request' , [UserController::class,'password.request'])->name('password.request');
+// Route::get('/signUp' , [UserController::class,'signUp'])->name('signUp');
 
 
 
