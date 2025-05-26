@@ -25,6 +25,9 @@ class UserController extends Controller
         return view('signIn');
     }
     public function signUp(){
-        return view('signUp');
+        return view('signup');
+    }
+    public function contactUs(){
+        return view('contactUs');
     }
 }

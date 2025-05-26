@@ -21,6 +21,13 @@
 <body>
     <div class="container">
         <h2>Sign In</h2>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" style="display:inline-block;">
+                <circle cx="32" cy="32" r="32" fill="#e9ecef"/>
+                <circle cx="32" cy="26" r="12" fill="#adb5bd"/>
+                <ellipse cx="32" cy="48" rx="18" ry="10" fill="#adb5bd"/>
+            </svg>
+        </div>
         <form method="POST" action="{{ route('signIn') }}">
             @csrf
             <div class="form-group">
@@ -32,7 +39,11 @@
                 <input id="password" type="password" name="password" required>
             </div>
             <a class="forgot-link" href="{{ route('password.request') }}">Forgot Password?</a>
-            <button type="submit">Sign In</button>
+            <button type="submit" style="margin-top: 16px;">Sign In</button>
+            <div style="text-align: center; margin: 16px 0; color: #888;">OR</div>
+            <a href="{{ route('signup') }}">
+                <button type="button" style="margin-top: 12px; background: #6c757d;">Sign Up</button>
+            </a>
         </form>
     </div>
 </body>

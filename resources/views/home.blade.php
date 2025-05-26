@@ -16,15 +16,18 @@
     <button id="menu-toggle" class="md:hidden text-xl">
       <i class="fas fa-bars"></i>
     </button>
-    <nav class="hidden md:flex gap-6 items-center">
-      <a href="{{ route('Home') }}" class="hover:underline">Events</a>
-      <a href="#" class="hover:underline">My Tickets</a>
-      <a href="#" class="hover:underline">Discover</a>
-      <a href="#" class="hover:underline">Contact us</a>
-      <button aria-label="Notifications"><i class="fas fa-bell"></i></button>
-      <a href="{{Route('Profile')}}" class="hover:text-blue-400"><i class="fas fa-user"></i></a>
-      <!-- <button class="bg-black text-white px-4 py-1 rounded-full">Sign in</button> -->
-       <a href="{{ route('signIn') }}">signIn</a>
+    <nav class="hidden md:flex gap-6 items-center text-lg"></nav>
+      <!-- Main navigation as linked buttons -->
+      <a href="{{ route('Home') }}" class="bg-[#f3e8e8] text-black px-6 py-2 rounded-full hover:bg-gray-200 transition font-semibold text-lg">Events</a>
+      <a href="#" class="bg-[#f3e8e8] text-black px-6 py-2 rounded-full hover:bg-gray-200 transition font-semibold text-lg">My Tickets</a>
+      <a href="#" class="bg-[#f3e8e8] text-black px-6 py-2 rounded-full hover:bg-gray-200 transition font-semibold text-lg">Discover</a>
+      <a href="contactUs" class="bg-[#f3e8e8] text-black px-6 py-2 rounded-full hover:bg-gray-200 transition font-semibold text-lg">Contact us</a>
+    </nav>
+    
+      <button aria-label="Notifications" class="mx-0.5"><i class="fas fa-bell"></i></button>
+      <a href="{{Route('Profile')}}" class="hover:text-blue-400 mx-0.5"><i class="fas fa-user"></i></a>
+      <a href="{{ route('signIn') }}" class="bg-black text-white px-4 py-1 rounded-full hover:bg-gray-800 transition">Sign In</a>
+      <a href="{{ route('signup') }}" class="bg-black text-white px-4 py-1 rounded-full hover:bg-gray-800 transition">Sign Up</a>
     </nav>
   </div>
   <div id="mobile-menu" class="md:hidden  mt-4 flex flex-col gap-4">
@@ -32,11 +35,7 @@
     <a href="#" class="hover:underline">My Tickets</a>
     <a href="#" class="hover:underline">Discover</a>
     <a href="#" class="hover:underline">Contact us</a>
-    <div class="flex gap-4 items-center">
-      <button aria-label="Notifications"><i class="fas fa-bell"></i></button>
-      <a href="{{Route('Profile')}}" class="hover:text-blue-400"><i class="fas fa-user"></i></a>
-      <button class="bg-black text-white px-4 py-1 rounded-full">Sign in</button>
-    </div>
+    
   </div>
   <script>
     document.getElementById('menu-toggle').addEventListener('click', () => {
@@ -51,11 +50,17 @@
     <i class="fas fa-search mr-2 text-white"></i>
     <input id="searchInput" type="text" placeholder="Search event..." class="bg-transparent w-full outline-none placeholder-white text-white" aria-label="Search Events">
   </form>
-  <div class="flex items-center gap-2 bg-[#875151] px-4 py-2 rounded-full">
-    <i class="fas fa-home"></i>
-    <span>Venue</span>
-    <i class="fas fa-chevron-down"></i>
-  </div>
+  <select id="event-category" name="event-category" class="bg-[#875151] text-white px-4 py-2 rounded-full focus:outline-none max-w-xs overflow-x-auto">
+    <option value="">&#xf0c9; select category</option>
+    <option value="Basketball">&#xf434; basketball</option>
+    <option value="Concert">&#xf001; concert</option>
+    <option value="Movie Shows">&#xf008; movie shows</option>
+    <option value="Party">&#xf560; party</option>
+  </select>
+  <script>
+    // Set FontAwesome font for select options
+    document.getElementById('event-category').style.fontFamily = 'FontAwesome, Arial, sans-serif';
+  </script>
   <div class="bg-[#875151] p-2 rounded-full">
     <i class="fas fa-ellipsis-h"></i>
   </div>
