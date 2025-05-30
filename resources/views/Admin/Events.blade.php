@@ -48,9 +48,83 @@
     <div class="bg-white p-6 rounded-lg shadow-md">
         <div class=" flex justify-between mb-2">
             <h2 class="text-2xl font-semibold mb-4">Event List</h2>
-            <a href="{{Route('Admin.Events.Create')}}" class="bg-primary text-white px-6 py-2  rounded hover:bg-blue-900 transition">Create Event</a>
+            <button popovertarget="event">Create Event</button>
+            <!-- <a href="{{Route('Admin.Events.Create')}}" class="bg-primary text-white px-6 py-2  rounded hover:bg-blue-900 transition">Create Event</a> -->
         </div>
-        <table class="min-w-full border text-sm">
+    <div id="event" popover class="bg-white p-6 rounded-lg shadow-md mb-10">
+        <h2 class="text-2xl font-semibold mb-4">Create New Event</h2>
+         @if (session('Success'))
+            <div class="text-green-600">{{session('Success')}}</div>
+        @endif
+        <form action="{{Route('Admin.Events.Store')}}" method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Event Name</label>
+                    <input type="text" name="Name" class="w-full p-2 border rounded" >
+                    @error('Name')
+                       <p class="text-red-600">{{$message}}</p>
+                    @enderror
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                    <input type="text" name="Location" class="w-full p-2 border rounded" >
+                    @error('Location')
+                       <p class="text-red-600">{{$message}}</p>
+                    @enderror
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                    <input type="date" name="Date" class="w-full p-2 border rounded" >
+                    @error('date')
+                       <p class="text-red-600">{{$message}}</p>
+                    @enderror
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Time</label>
+                    <input type="text" name="Time" class="w-full p-2 border rounded" >
+                    @error('Time')
+                       <p class="text-red-600">{{$message}}</p>
+                    @enderror
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Image</label>
+                    <img id="img" style="max-width: 150px">
+                    <input type="file" name="Image" onchange="img.src =window.URL.createObject(this.files[])"
+                     class="w-full p-2 border rounded" >
+                    @error('Image')
+                       <p class="text-red-600">{{$message}}</p>
+                    @enderror
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                    <input list="category"  name="Category" class="w-full p-2 border rounded">
+                    <datalist id="category">
+                        <option value="Music"></option>
+                        <option value="Movie"></option>
+                        <option value="Football"></option>
+                    </datalist>
+                    @error('Category')
+                       <p class=" text-red-600">{{$message}}</p>
+                    @enderror
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                    <input type="text" name="Status" class="w-full p-2 border rounded" >
+                    @error('Status')
+                       <p class="text-red-600">{{$message}}</p>
+                    @enderror
+                </div>
+            </div>
+            <div class="mt-6 flex justify-between">
+                <input type="submit" value="Upload" class="bg-primary text-white px-6 py-2 rounded hover:bg-blue-900 transition">
+                <button popovertarget="event">Close</button>
+                 
+            </div>
+        </form>
+    </div>
+
+        <table class="min-w-full border text-sm table-fixed">
             <thead class="bg-primary text-white">
                 <tr>
                     <th class="p-2 text-left">Image</th>

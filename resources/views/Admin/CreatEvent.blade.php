@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -91,7 +91,12 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                    <input type="text" name="Category" class="w-full p-2 border rounded">
+                    <input list="category"  name="Category" class="w-full p-2 border rounded">
+                    <datalist id="category">
+                        <option value="Music"></option>
+                        <option value="Movie"></option>
+                        <option value="Football"></option>
+                    </datalist>
                     @error('Category')
                        <p class=" text-red-600">{{$message}}</p>
                     @enderror
@@ -115,4 +120,4 @@
 
 </body>
 
-</html>
+</html> -->

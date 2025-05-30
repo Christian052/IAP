@@ -9,22 +9,31 @@
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 class="text-2xl font-bold mb-6 text-center">Signup</h2>
+         @if (session('Success'))
+            <div class="text-green-600">{{session('Success')}}</div>
+        @endif
         <div class="flex justify-center mb-6">
             <svg class="w-16 h-16 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 48 48" aria-hidden="true">
                 <circle cx="24" cy="16" r="8" stroke="currentColor" stroke-width="2" fill="none"/>
                 <path d="M8 40c0-6.627 7.163-12 16-12s16 5.373 16 12" stroke="currentColor" stroke-width="2" fill="none"/>
             </svg>
         </div>
-        <div class="flex justify-center mb-6"></div>
         <form action="{{ route('signup') }}" method="POST" class="space-y-4">
             @csrf
             <div>
+                
                 <label for="fullnames" class="block text-gray-700 font-medium mb-1">Full Names:</label>
+                @error('fullnames')
+                       <p class="text-red-600">{{$message}}</p>
+                    @enderror
                 <input type="text" id="fullnames" name="fullnames" required class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
             </div>
 
             <div>
                 <label for="gender" class="block text-gray-700 font-medium mb-1">Gender:</label>
+                @error('gender')
+                       <p class="text-red-600">{{$message}}</p>
+                    @enderror
                 <select id="gender" name="gender" required class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
                     <option value="">Select Gender</option>
                     <option value="male">Male</option>
@@ -35,11 +44,17 @@
 
             <div>
                 <label for="dob" class="block text-gray-700 font-medium mb-1">Date of Birth:</label>
+                @error('dob')
+                       <p class="text-red-600">{{$message}}</p>
+                    @enderror
                 <input type="date" id="dob" name="dob" required class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
             </div>
 
             <div>
                 <label for="country" class="block text-gray-700 font-medium mb-1">Country:</label>
+                @error('country')
+                       <p class="text-red-600">{{$message}}</p>
+                    @enderror
                 <select id="country" name="country" required class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" onchange="toggleOtherCountry(this)">
                     <option value="">Choose Country</option>
                     <option value="USA">USA</option>
@@ -66,16 +81,25 @@
 
             <div>
                 <label for="email" class="block text-gray-700 font-medium mb-1">Email Address:</label>
+                @error('email')
+                       <p class="text-red-600">{{$message}}</p>
+                    @enderror
                 <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
             </div>
 
             <div>
                 <label for="phone" class="block text-gray-700 font-medium mb-1">Phone Number:</label>
+                @error('phone')
+                       <p class="text-red-600">{{$message}}</p>
+                    @enderror
                 <input type="tel" id="phone" name="phone" required class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
             </div>
 
             <div>
                 <label for="password" class="block text-gray-700 font-medium mb-1">Enter Password:</label>
+                @error('password')
+                       <p class="text-red-600">{{$message}}</p>
+                    @enderror
                 <input type="password" id="password" name="password" required class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
             </div>
 
@@ -87,7 +111,7 @@
             <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition font-semibold">Sign Up</button>
             <div class="text-center mt-4">
                 <span class="text-gray-600">Already have an account?</span>
-                <a href="{{ route('signIn') }}" class="text-blue-600 hover:underline font-semibold ml-1">Sign In</a>
+                <a href="{{ route('signin') }}" class="text-blue-600 hover:underline font-semibold ml-1">Sign In</a>
             </div>
         </form>
     </div>

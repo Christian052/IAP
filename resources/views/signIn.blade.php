@@ -28,7 +28,7 @@
                 <ellipse cx="32" cy="48" rx="18" ry="10" fill="#adb5bd"/>
             </svg>
         </div>
-        <form method="POST" action="{{ route('signIn') }}">
+        <form method="POST" action="{{ route('signin') }}">
             @csrf
             <div class="form-group">
                 <label for="email">Email Address</label>

@@ -8,9 +8,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [UserController::class, 'ShowHome'])->name('Home');
 Route::get('/userprofile', [UserController::class, 'UserProfile'])->name('Profile');
 Route::get('/book', [UserController::class,'book'])->name('book');
-Route::get('/signIn' , [UserController::class,'signIn'])->name('signIn');
+Route::get('/signin' , [UserController::class,'signIn'])->name('signin');
+Route::post('/signin' , [UserController::class,'signIn'])->name('signin.store');
 Route::get('/signin/password.request' , [UserController::class,'password.request'])->name('password.request');
-Route::get('/signUp' , [UserController::class,'signup'])->name('signup');
+Route::get('/signup' , [UserController::class,'signup'])->name('signup');
+Route::post('/signup', [UserController::class, 'register'])->name('signup.store');
 Route::get('/contactUs',[UserController::class, 'contactUs'])->name('contactUs');
 
 

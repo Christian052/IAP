@@ -26,7 +26,7 @@
     
       <button aria-label="Notifications" class="mx-0.5"><i class="fas fa-bell"></i></button>
       <a href="{{Route('Profile')}}" class="hover:text-blue-400 mx-0.5"><i class="fas fa-user"></i></a>
-      <a href="{{ route('signIn') }}" class="bg-black text-white px-4 py-1 rounded-full hover:bg-gray-800 transition">Sign In</a>
+      <a href="{{ route('signin') }}" class="bg-black text-white px-4 py-1 rounded-full hover:bg-gray-800 transition">Sign In</a>
       <a href="{{ route('signup') }}" class="bg-black text-white px-4 py-1 rounded-full hover:bg-gray-800 transition">Sign Up</a>
     </nav>
   </div>
