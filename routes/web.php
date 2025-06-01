@@ -9,7 +9,7 @@ Route::get('/', [UserController::class, 'ShowHome'])->name('Home');
 Route::get('/userprofile', [UserController::class, 'UserProfile'])->name('Profile');
 Route::get('/book', [UserController::class,'book'])->name('book');
 Route::get('/signin' , [UserController::class,'signIn'])->name('signin');
-Route::post('/signin' , [UserController::class,'signIn'])->name('signin.store');
+Route::post('/signin',[UserController::class,'login'])->name('signin.store');
 Route::get('/signin/password.request' , [UserController::class,'password.request'])->name('password.request');
 Route::get('/signup' , [UserController::class,'signup'])->name('signup');
 Route::post('/signup', [UserController::class, 'register'])->name('signup.store');

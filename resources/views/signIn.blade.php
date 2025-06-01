@@ -16,6 +16,7 @@
         .forgot-link { display: block; text-align: right; margin-top: 8px; font-size: 0.95em; }
         button { width: 100%; padding: 10px; background: #007bff; color: #fff; border: none; border-radius: 4px; font-size: 1em; }
         button:hover { background: #0056b3; }
+        .error-msg { color: red; font-size: 0.9em; margin-top: 4px; }
     </style>
 </head>
 <body>
@@ -28,11 +29,21 @@
                 <ellipse cx="32" cy="48" rx="18" ry="10" fill="#adb5bd"/>
             </svg>
         </div>
-        <form method="POST" action="{{ route('signin') }}">
+
+        {{-- Display login errors --}}
+        @if ($errors->any())
+            <div class="error-msg">
+                @foreach ($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('signin.store') }}">
             @csrf
             <div class="form-group">
                 <label for="email">Email Address</label>
-                <input id="email" type="email" name="email" required autofocus>
+                <input id="email" type="email" name="email" required autofocus value="{{ old('email') }}">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
@@ -47,4 +58,4 @@
         </form>
     </div>
 </body>
-</html></div></body></style>
+</html>
